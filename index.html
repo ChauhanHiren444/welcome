@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family: 'Segoe UI', Arial;
+  height:100vh;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#ff4d6d,#ff9a9e);
+}
+
+/* Floating hearts */
+.heart{
+  position:absolute;
+  color:#fff;
+  opacity:.9;
+  animation:float linear infinite;
+}
+@keyframes float{
+  from{transform:translateY(110vh) scale(.6)}
+  to{transform:translateY(-10vh) scale(1.4)}
+}
+
+/* Card */
+.card{
+  width:92%;
+  max-width:370px;
+  background:#fff;
+  border-radius:22px;
+  padding:28px;
+  text-align:center;
+  box-shadow:0 14px 40px rgba(0,0,0,.3);
+  animation:pop .8s ease;
+}
+@keyframes pop{
+  from{transform:scale(.6);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+h1{
+  margin:0;
+  color:#ff4d6d;
+  font-size:25px;
+}
+
+p{
+  margin:10px 0;
+  color:#444;
+  font-size:16px;
+}
+
+.name{
+  margin-top:14px;
+  font-weight:bold;
+  color:#ff4d6d;
+  font-size:18px;
+}
+
+.tap{
+  margin-top:16px;
+  font-size:13px;
+  color:#888;
+}
+</style>
+</head>
+
+<body onclick="startMusic()">
+
+<div class="card">
+  <h1>Hey 😊</h1>
+  <p>Just something for you 💫</p>
+  <p>Keep smiling always 😄</p>
+  <div class="name">— Angry Bird 🐦</div>
+  <div class="tap">(Tap anywhere 🎵)</div>
+</div>
+
+<!-- Tum Se Hi Song -->
+<audio id="song" loop preload="auto">
+  <source src="song.mp3" type="audio/mp3">
+</audio>
+
+<script>
+
+/* Smooth floating hearts */
+for(let i=0;i<35;i++){
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤";
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=(14+Math.random()*22)+"px";
+  h.style.animationDuration=(4+Math.random()*5)+"s";
+  document.body.appendChild(h);
+}
+
+/* Music start on first tap (mobile fix) */
+let started=false;
+function startMusic(){
+  if(started) return;
+  const s=document.getElementById("song");
+  s.play().catch(()=>{});
+  started=true;
+}
+</script>
+
+</body>
+</html>
