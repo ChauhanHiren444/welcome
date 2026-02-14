@@ -8,29 +8,39 @@
 <style>
 body{
   margin:0;
+  font-family:system-ui, Arial;
+  height:100vh;
   overflow:hidden;
-  font-family:Arial, sans-serif;
-  background:radial-gradient(circle at center,#1a1a1a,#000);
-  color:white;
   display:flex;
   justify-content:center;
   align-items:center;
-  height:100vh;
+  background:linear-gradient(135deg,#ff6f91,#ffc3a0);
 }
 
 /* Card */
 .card{
+  width:90%;
+  max-width:360px;
+  background:white;
+  border-radius:20px;
+  padding:28px;
   text-align:center;
-  z-index:2;
+  box-shadow:0 15px 35px rgba(0,0,0,.25);
+  animation:pop .7s ease;
 }
-.card h1{font-size:32px;margin:0}
-.card p{opacity:.9}
-.name{margin-top:10px;color:#ff4d6d}
+@keyframes pop{
+  from{transform:scale(.7);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+h1{margin:0;color:#ff4d6d}
+p{color:#444;margin:8px 0}
+.name{margin-top:10px;color:#ff4d6d;font-weight:bold}
 
 /* Floating hearts */
 .heart{
   position:absolute;
-  color:#ff4d6d;
+  color:white;
   animation:float linear infinite;
 }
 @keyframes float{
@@ -38,76 +48,75 @@ body{
   to{transform:translateY(-10vh)}
 }
 
-/* Firework particle */
-.particle{
+/* Firework */
+.spark{
   position:absolute;
   width:4px;height:4px;
   border-radius:50%;
   background:#fff;
-  animation:explode 1s forwards;
+  animation:spark 1s forwards;
 }
-@keyframes explode{
-  to{
-    transform:translate(var(--x),var(--y));
-    opacity:0;
-  }
+@keyframes spark{
+  to{transform:translate(var(--x),var(--y));opacity:0;}
 }
 </style>
 </head>
 
-<body onclick="startShow(event)">
+<body onclick="startAll(event)">
 
 <div class="card">
   <h1>Hey 😊</h1>
-  <p>Just something for you ✨</p>
-  <p>Stay happy always 😄</p>
+  <p>Happy valantine day My cutie pie Besty....💫</p>
+  <p>Keep smiling always 😄</p>
+  <p>Motki you look gorgeous when you are smiling...keep smiling. 😘❤️😉 </p>
   <div class="name">— Angry Bird 🐦</div>
   <p>(Tap anywhere)</p>
 </div>
 
+<!-- AUDIO multi-format -->
 <audio id="song" loop>
-  <source src="song.mp3.wav" type="audio/wav">
   <source src="song.mp3" type="audio/mp3">
+  <source src="song.mp3.wav" type="audio/wav">
+  <source src="song.wav" type="audio/wav">
 </audio>
-
 
 <script>
 
-/* Floating hearts background */
-for(let i=0;i<40;i++){
+/* Floating hearts smooth */
+for(let i=0;i<28;i++){
   const h=document.createElement("div");
   h.className="heart";
   h.innerHTML="❤";
   h.style.left=Math.random()*100+"vw";
-  h.style.fontSize=(14+Math.random()*24)+"px";
-  h.style.animationDuration=(5+Math.random()*5)+"s";
+  h.style.fontSize=(14+Math.random()*18)+"px";
+  h.style.animationDuration=(5+Math.random()*4)+"s";
   document.body.appendChild(h);
 }
 
 let started=false;
 
-function startShow(e){
+function startAll(e){
 
-  /* Start music */
+  /* Start music (mobile fix) */
   if(!started){
-    document.getElementById("song").play().catch(()=>{});
+    const s=document.getElementById("song");
+    s.play().catch(()=>{});
     started=true;
   }
 
-  /* Firework explosion */
-  for(let i=0;i<40;i++){
-    const p=document.createElement("div");
-    p.className="particle";
-    p.style.left=e.clientX+"px";
-    p.style.top=e.clientY+"px";
-    p.style.setProperty("--x",(Math.random()*400-200)+"px");
-    p.style.setProperty("--y",(Math.random()*400-200)+"px");
-    document.body.appendChild(p);
-    setTimeout(()=>p.remove(),1000);
+  /* Firework smooth */
+  for(let i=0;i<30;i++){
+    const sp=document.createElement("div");
+    sp.className="spark";
+    sp.style.left=e.clientX+"px";
+    sp.style.top=e.clientY+"px";
+    sp.style.setProperty("--x",(Math.random()*250-125)+"px");
+    sp.style.setProperty("--y",(Math.random()*250-125)+"px");
+    document.body.appendChild(sp);
+    setTimeout(()=>sp.remove(),1000);
   }
 }
 </script>
 
 </body>
 </html>
-
