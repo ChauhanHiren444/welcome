@@ -3,112 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Welcome</title>
+<title>Private</title>
 
 <style>
-*{box-sizing:border-box}
-
 body{
   margin:0;
-  font-family: 'Segoe UI', Arial;
-  height:100vh;
-  overflow:hidden;
+  font-family:Arial;
+  background:#111;
+  color:white;
   display:flex;
   justify-content:center;
   align-items:center;
-  background:linear-gradient(135deg,#ff4d6d,#ff9a9e);
+  height:100vh;
 }
 
-/* Floating hearts */
-.heart{
-  position:absolute;
-  color:#fff;
-  opacity:.9;
-  animation:float linear infinite;
-}
-@keyframes float{
-  from{transform:translateY(110vh) scale(.6)}
-  to{transform:translateY(-10vh) scale(1.4)}
-}
-
-/* Card */
-.card{
-  width:92%;
-  max-width:370px;
-  background:#fff;
-  border-radius:22px;
-  padding:28px;
+/* Login box */
+#lock{
   text-align:center;
-  box-shadow:0 14px 40px rgba(0,0,0,.3);
-  animation:pop .8s ease;
 }
-@keyframes pop{
-  from{transform:scale(.6);opacity:0}
-  to{transform:scale(1);opacity:1}
+input{
+  padding:10px;
+  border:none;
+  border-radius:8px;
 }
-
-h1{
-  margin:0;
-  color:#ff4d6d;
-  font-size:25px;
-}
-
-p{
-  margin:10px 0;
-  color:#444;
-  font-size:16px;
-}
-
-.name{
-  margin-top:14px;
-  font-weight:bold;
-  color:#ff4d6d;
-  font-size:18px;
-}
-
-.tap{
-  margin-top:16px;
-  font-size:13px;
-  color:#888;
+button{
+  padding:10px 15px;
+  border:none;
+  border-radius:8px;
+  background:#ff4d6d;
+  color:white;
 }
 </style>
 </head>
 
-<body onclick="startMusic()">
+<body>
 
-<div class="card">
-  <h1>Hey 😊</h1>
-  <p>Just something for you 💫</p>
-  <p>Keep smiling always 😄</p>
-  <div class="name">— Angry Bird 🐦</div>
-  <div class="tap">(Tap anywhere 🎵)</div>
+<div id="lock">
+  <h2>Enter Password 🔐</h2>
+  <input type="password" id="pass" placeholder="Password">
+  <br><br>
+  <button onclick="unlock()">Open</button>
 </div>
 
-<!-- Tum Se Hi Song -->
-<audio id="song" loop preload="auto">
+<!-- Card hidden -->
+<div id="card" style="display:none; text-align:center;">
+  <h1>Hey 😊</h1>
+  <p>Just something for you 💫</p>
+  <p>Stay happy always 😄</p>
+  <h3>— Angry Bird 🐦</h3>
+</div>
+
+<audio id="song" loop>
   <source src="song.mp3" type="audio/mp3">
 </audio>
 
 <script>
 
-/* Smooth floating hearts */
-for(let i=0;i<35;i++){
-  const h=document.createElement("div");
-  h.className="heart";
-  h.innerHTML="❤";
-  h.style.left=Math.random()*100+"vw";
-  h.style.fontSize=(14+Math.random()*22)+"px";
-  h.style.animationDuration=(4+Math.random()*5)+"s";
-  document.body.appendChild(h);
-}
+/* Change password here */
+const PASSWORD = "MOTKI";
 
-/* Music start on first tap (mobile fix) */
-let started=false;
-function startMusic(){
-  if(started) return;
-  const s=document.getElementById("song");
-  s.play().catch(()=>{});
-  started=true;
+function unlock(){
+  if(document.getElementById("pass").value === PASSWORD){
+    document.getElementById("lock").style.display="none";
+    document.getElementById("card").style.display="block";
+    document.getElementById("song").play().catch(()=>{});
+  }else{
+    alert("Wrong Password ❌");
+  }
 }
 </script>
 
